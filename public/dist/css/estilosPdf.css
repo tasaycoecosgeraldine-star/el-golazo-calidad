@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.80em;
+}
+
+table {
+    border-collapse: collapse;
+    border-color: rgb(0, 0, 0);
+    width: 100%;
+}
+
+td {
+    padding: 3px;
+    border: 1px solid rgb(37, 87, 134);
+}
+
+th {
+    padding: 3px;
+    border: 1px solid rgb(37, 87, 134);
+    background: #eaf3fa;
+    color: #12446b;
+}
+
+.data {
+    float: right;
+    margin: 2% 0% 0% 0%;
+}

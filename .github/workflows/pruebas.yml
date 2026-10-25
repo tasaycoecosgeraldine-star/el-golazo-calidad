@@ -1,0 +1,75 @@
+name: Pruebas de El Golazo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    name: Revisar PHP y ejecutar PHPUnit
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+
+    env:
+      APP_ENV: testing
+      DB_CONNECTION: sqlite
+      DB_DATABASE: ":memory:"
+      CACHE_DRIVER: array
+      SESSION_DRIVER: array
+      MAIL_MAILER: array
+      QUEUE_CONNECTION: sync
+
+    steps:
+      - name: Obtener el codigo
+        uses: actions/checkout@v4
+
+      - name: Preparar PHP y Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+          extensions: mbstring, dom, xml, xmlwriter, fileinfo, pdo_sqlite, gd, zip, bcmath
+          tools: composer:v2
+          coverage: none
+
+      - name: Preparar configuracion de pruebas
+        run: |
+          cp .env.example .env
+          mkdir -p storage/framework/cache/data
+          mkdir -p storage/framework/sessions
+          mkdir -p storage/framework/views
+          mkdir -p storage/logs
+          mkdir -p bootstrap/cache
+          mkdir -p reports
+
+      - name: Instalar dependencias
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Preparar Laravel
+        run: |
+          php artisan key:generate --force
+          php artisan config:clear
+
+      - name: Comprobar sintaxis PHP
+        run: |
+          set -o pipefail
+          find app routes config tests database bootstrap \
+            -type f -name '*.php' -print0 \
+            | xargs -0 -r -n 1 php -l
+
+      - name: Ejecutar pruebas y generar reporte
+        run: vendor/bin/phpunit --log-junit reports/phpunit.xml
+
+      - name: Guardar reporte de pruebas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-phpunit
+          path: reports/phpunit.xml
+          if-no-files-found: warn
+          retention-days: 14

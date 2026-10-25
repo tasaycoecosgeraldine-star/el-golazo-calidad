@@ -1,0 +1,187 @@
+ .formulario__grupo-input {
+     position: relative;
+ }
+
+ .fg {
+     margin-bottom: -10px;
+ }
+
+ .fi {
+     /* border: 3px solid ; */
+     border-radius: 3px;
+     transition: .3s ease all;
+ }
+
+ .a .tooltiptext {
+     visibility: hidden;
+     width: 250px;
+     /* padding: 5px; */
+     /* background-color: #69f5cb; */
+     color: #16ac7f;
+     font-weight: bold;
+     text-align: center;
+     /* border-radius: px; */
+     padding: 5px 0;
+     position: absolute;
+     z-index: 1;
+     bottom: 110%;
+     left: 40%;
+     margin-left: -60px;
+     opacity: 0;
+     transition: opacity 0.3s;
+ }
+
+ .a .tooltiptext::after {
+     content: "";
+     position: absolute;
+     top: 100%;
+     left: 50%;
+     margin-left: -5px;
+     border-width: 5px;
+     border-style: solid;
+     border-color: #16ac7f transparent transparent transparent;
+ }
+
+ .a:hover .tooltiptext {
+     visibility: visible;
+     opacity: 1;
+ }
+
+ .fa-2x-x {
+     height: 1em;
+     width: 1.1em;
+ }
+
+ .fi:focus {
+     border: 3px solid #16ac7f;
+     outline: none;
+     box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+ }
+
+ .formulario__input-error {
+     font-size: 12px;
+     margin-bottom: 0;
+     display: none;
+ }
+
+ .formulario__input-error-activo {
+     display: inline;
+     color: tomato;
+ }
+ /* Trabajar con el icono */
+
+ .formulario__validacion-estado {
+     position: absolute;
+     right: 10px;
+     margin-top: 10px;
+     z-index: 100;
+     font-size: 16px;
+     opacity: 0;
+ }
+ /* Estado para validación */
+
+ .fg-correcto .formulario__validacion-estado {
+     color: #1ed12d;
+     opacity: 1;
+ }
+
+ .fg-incorrecto .formulario__validacion-estado {
+     color: #bb2929;
+     opacity: 1;
+ }
+
+ .fg-incorrecto .fi {
+     border: 3px solid #bb2929;
+     opacity: 1;
+ }
+ /* Start Fonts from Google Fonts */
+ /*Google Fonts*/
+ /* ---------------------------------------- */
+
+ @import url('https://fonts.googleapis.com/css?family=Arapey|Cantarell|Comfortaa|Khand|Russo+One|Ubuntu');
+ /*End Fonts*/
+ /* Start Body */
+ /* End Body */
+ /*tooltip Box*/
+
+ .con-tooltip {
+     transition: all 0.3s ease-in-out;
+     cursor: default;
+ }
+ /*tooltip */
+
+ .tooltip {
+     visibility: hidden;
+     z-index: 1;
+     opacity: .40;
+     width: 48%;
+     padding: 10px 10px;
+     background: #333;
+     color: #ebeef7;
+     position: absolute;
+     top: -140%;
+     left: -25%;
+     border-radius: 9px;
+     font: 20px;
+     transform: translateY(9px);
+     transition: all 0.3s ease-in-out;
+     box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
+ }
+ /* tooltip  after*/
+
+ .tooltip::after {
+     content: " ";
+     width: 0;
+     height: 0;
+     border-style: solid;
+     border-width: 12px 12.5px 0 12.5px;
+     border-color: #333 transparent transparent transparent;
+     position: absolute;
+     left: 40%;
+ }
+
+ .con-tooltip:hover .tooltip {
+     visibility: visible;
+     transform: translateY(-10px);
+     opacity: 1;
+     transition: .3s linear;
+     animation: odsoky 1s ease-in-out infinite alternate;
+ }
+
+ @keyframes odsoky {
+     0% {
+         transform: translateY(6px);
+     }
+     100% {
+         transform: translateY(1px);
+     }
+ }
+ /*hover ToolTip*/
+
+ .left:hover {
+     transform: translateX(-6px);
+ }
+
+ .top:hover {
+     transform: translateY(-6px);
+ }
+
+ .bottom:hover {
+     transform: translateY(6px);
+ }
+
+ .right:hover {
+     transform: translateX(6px);
+ }
+ /*right*/
+
+ .right .tooltip {
+     top: -20%;
+     left: 115%;
+ }
+
+ .right .tooltip::after {
+     top: 40%;
+     left: -12%;
+     transform: rotate(90deg);
+ }
