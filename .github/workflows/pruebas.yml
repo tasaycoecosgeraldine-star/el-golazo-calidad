@@ -73,3 +73,16 @@ jobs:
           path: reports/phpunit.xml
           if-no-files-found: warn
           retention-days: 14
+          
+      - name: Generar reporte visual de El Golazo
+        if: always()
+        run: php scripts/reporte.php
+
+      - name: Guardar reporte visual
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-visual-golazo
+          path: reports/reporte-golazo.html
+          if-no-files-found: warn
+          retention-days: 14
