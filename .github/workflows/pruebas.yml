@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Obtener el codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Preparar PHP y Composer
         uses: shivammathur/setup-php@v2
@@ -67,20 +67,20 @@ jobs:
 
       - name: Guardar reporte de pruebas
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: reporte-phpunit
           path: reports/phpunit.xml
           if-no-files-found: warn
           retention-days: 14
-          
+
       - name: Generar reporte visual de El Golazo
         if: always()
         run: php scripts/reporte.php
 
       - name: Guardar reporte visual
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: reporte-visual-golazo
           path: reports/reporte-golazo.html
