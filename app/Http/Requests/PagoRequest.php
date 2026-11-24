@@ -25,7 +25,7 @@ class PagoRequest extends FormRequest
     {
         return [
             'metodoPago' => 'required|max:91',
-            'importePago' => 'required|numeric',
+            'importePago' => 'required|numeric|gt:0',
         ];
     }
 
@@ -36,6 +36,7 @@ class PagoRequest extends FormRequest
             'metodoPago.max' => 'El método de pago no debe exceder los 91 caracteres.',
             'importePago.required' => 'El importe del pago es requerido.',
             'importePago.numeric' => 'El importe del pago debe ser un número.',
+            'importePago.gt' => 'El importe del pago debe ser mayor que cero.',
 
         ];
     }

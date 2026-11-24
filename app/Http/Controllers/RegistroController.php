@@ -31,28 +31,35 @@ class RegistroController extends Controller
         }
     }
 
-    public function validarFecha($id, $codLocalidad, $fecha, $horaInicial, $horaFinal)
-    {
+        public function validarFecha(
+        $id,
+        $codLocalidad,
+        $fecha,
+        $horaInicial,
+        $horaFinal
+    ) {
         $mytime = Carbon::now('America/Lima');
         $fecha_actual = $mytime->toDateString();
         $hora_actual = $mytime->toTimeString();
 
-        $registro = Registro::select("*")
+        $registro = Registro::select('*')
             ->whereDate('fechRegistro', '=', $fecha)
             ->where('codRegistro', '!=', $id)
             ->where('codLocalidad', '=', $codLocalidad)
-            ->Where(function ($q)  use ($horaInicial, $horaFinal) {
-                $q->orwhereBetween('horainicio', [$horaInicial, $horaFinal])
-                    ->orWhereBetween('horafinal', [$horaInicial, $horaFinal]);
-            })
+            ->where('horainicio', '<', $horaFinal)
+            ->where('horafinal', '>', $horaInicial)
             ->first();
-        if (strtotime($fecha . $horaInicial) < strtotime($fecha_actual . $hora_actual)) {
-            $registro = 1;
+
+        if (
+            strtotime($fecha . ' ' . $horaInicial) <
+            strtotime($fecha_actual . ' ' . $hora_actual)
+        ) {
+            return false;
         }
-        return $registro == null ? true : false;
+
+        return $registro === null;
     }
-
-
+    
     public function guardar(Request $request)
     {
         $input = $request->all();
